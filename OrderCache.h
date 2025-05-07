@@ -7,7 +7,6 @@
 
 class Order {
 public:
-    // do not alter signature of this constructor
     Order(
         const std::string &ordId,
         const std::string &secId,
@@ -23,18 +22,16 @@ public:
           m_company(company) {
     }
 
-    // do not alter these accessor methods
-    std::string orderId() const { return m_orderId; }
-    std::string securityId() const { return m_securityId; }
-    std::string side() const { return m_side; }
-    std::string user() const { return m_user; }
-    std::string company() const { return m_company; }
+    // consider order id and security id can be integer
+    const std::string& orderId() const { return m_orderId; }
+    const std::string& securityId() const { return m_securityId; }
+    const std::string& side() const { return m_side; }
+    const std::string& user() const { return m_user; }
+    const std::string& company() const { return m_company; }
     unsigned int qty() const { return m_qty; }
     void qty(const unsigned int qty) { m_qty = qty; }
 
 private:
-    // use the below to hold the order data
-    // do not remove the these member variables
     std::string m_orderId; // unique order id
     std::string m_securityId; // security identifier
     std::string m_side; // side of the order, eg Buy or Sell
@@ -43,12 +40,8 @@ private:
     std::string m_company; // company for user
 };
 
-// Provide an implementation for the OrderCacheInterface interface class.
-// Your implementation class should hold all relevant data structures you think
-// are needed.
 class OrderCacheInterface {
 public:
-    // implement the 6 methods below, do not alter signatures
 
     // add order to the cache
     virtual void addOrder(Order order) = 0;
@@ -69,7 +62,6 @@ public:
     virtual std::vector<Order> getAllOrders() const = 0;
 };
 
-// Todo: Your implementation of the OrderCache...
 class OrderCache : public OrderCacheInterface {
 public:
     OrderCache() {
@@ -105,7 +97,7 @@ private:
             constexpr size_t offset = 0xCBF29CE484222325;
             size_t hash = offset;
 
-            for (char c : key) {
+            for (char c: key) {
                 hash ^= static_cast<size_t>(c);
                 hash *= prime;
             }
